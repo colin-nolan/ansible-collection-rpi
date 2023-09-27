@@ -1,0 +1,13 @@
+[tool.pytest.ini_options]
+testpaths = [
+    "tests",
+]
+filterwarnings = [
+    'ignore:AnsibleCollectionFinder has already been configured',
+]
+
+[tool.black]
+line-length = 120
+
+[tool.isort]
+profile = "black"
