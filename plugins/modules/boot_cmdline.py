@@ -94,6 +94,7 @@ def _write_boot_cmdline(file_location: Path, configuration: Configuration, atomi
         # https://docs.ansible.com/ansible/latest/dev_guide/developing_modules_best_practices.html#general-guidelines-tips
         with tempfile.NamedTemporaryFile(mode="w") as file:
             file.write(" ".join(items))
+            file.flush()
             atomic_move(file.name, file_location.as_posix())
     except FileNotFoundError:
         # Expecting a failure in the success case, as the file has been removed
