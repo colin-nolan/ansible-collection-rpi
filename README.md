@@ -1,12 +1,50 @@
 [![Build Status](https://ci.colinnolan.uk/api/badges/colin-nolan/ansible-module-boot-cmdline/status.svg)](https://ci.colinnolan.uk/colin-nolan/ansible-module-boot-cmdline)
 
-# Ansible Collection - colin_nolan.boot_cmdline
+# Ansible Collection - colin_nolan.rpi
 
-Ansible module (not role) for managing values in `/boot/cmdline.txt` or similar files.
+Collection of Ansible modules for managing Raspberry Pis. Contains modules to:
+
+- Set kernel boot parameters in `/boot/cmdline.txt` (or similar files).
 
 ## Installation
 
-TODO
+This collection is not yet published on [Ansible Galaxy](https://galaxy.ansible.com/) but it can be installed from GitHub.
+
+If you are [using a `requirements.yml` file](https://docs.ansible.com/ansible/latest/galaxy/user_guide.html#installing-multiple-roles-from-a-file)
+
+```yml
+collections:
+  - name: git+https://github.com/colin-nolan/ansible-module-boot-cmdline.git,1.0.0
+```
+
+else install from the command line using:
+
+```shell
+ansible-galaxy collection install git+https://github.com/colin-nolan/ansible-module-boot-cmdline.git,1.0.0
+```
+
+## Usage
+
+Create a task in your role/playbook that uses the module, e.g.:
+```yml
+- name: Set kernel boot parameters
+  become: true
+  colin_nolan.rpi.boot_cmdline:
+    state: present
+    items:
+      cgroup_memory: 1
+      cgroup_enable: memory
+      key_only: null
+  notify: reboot
+```
+
+It is likely you will want to reboot handler to apply any changes, e.g.:
+```yml
+- name: Reboot the machine
+  become: true
+  ansible.builtin.reboot:
+  listen: reboot
+```
 
 ## Development
 

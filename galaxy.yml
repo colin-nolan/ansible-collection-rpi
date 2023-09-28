@@ -1,20 +1,16 @@
 ---
 
 namespace: colin_nolan
-name: boot_cmdline
+name: rpi
 version: 1.0.0
 readme: README.md
 authors:
   - Colin Nolan <cn580@alumni.york.ac.uk>
-# TODO
-description: your collection description
+description: collection of Raspberry Pi related modules
 license:
   - MIT
-# TODO
-tags: []
-dependencies: {}
-repository: https://github.com/colin-nolan/ansible-module-boot-cmdline
-documentation: https://github.com/colin-nolan/ansible-module-boot-cmdline/blob/main/README.md
-homepage: https://github.com/colin-nolan/ansible-module-boot-cmdline
-issues: https://github.com/colin-nolan/ansible-module-boot-cmdline/issues
+repository: https://github.com/colin-nolan/ansible-collection-rpi
+documentation: https://github.com/colin-nolan/ansible-collection-rpi/blob/main/README.md
+homepage: https://github.com/colin-nolan/ansible-collection-rpi
+issues: https://github.com/colin-nolan/ansible-collection-rpi/issues
 build_ignore: []

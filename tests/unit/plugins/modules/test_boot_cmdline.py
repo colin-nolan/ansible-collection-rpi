@@ -58,7 +58,7 @@ def test_add_new_items(runner: ModuleDispatcherV2, example_file: Path, check_mod
         check_mode,
     )
     assert result["changed"]
-    assert set(result["changed_keys"]) == {"new_key", "no_value", "other_key"}
+    assert set(result["changed_parameters"]) == {"new_key", "no_value", "other_key"}
     _expect_in_cmdline("new_key", "new_value", example_file, check_mode)
     _expect_in_cmdline("other_key", "other=value", example_file, check_mode)
     _expect_in_cmdline("no_value", None, example_file, check_mode)
