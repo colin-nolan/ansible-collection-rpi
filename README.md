@@ -2,7 +2,7 @@
 
 # Ansible Collection - colin_nolan.boot_cmdline
 
-Ansible module (not role) for managing `/boot/cmdline.txt` or similar files.
+Ansible module (not role) for managing values in `/boot/cmdline.txt` or similar files.
 
 ## Installation
 
@@ -44,9 +44,8 @@ drone exec --pipeline=lint .drone.yml
 
 ## Alternatives
 
-- https://github.com/jtyr/ansible-grub_cmdline
-- https://github.com/escalate/ansible-raspberry-cmdline
-- https://github.com/JM1/ansible-role-jm1-rpi-cmdline
+- [`escalate.cmdline`](https://github.com/escalate/ansible-raspberry-cmdline): role for setting all parameters in `/boot/cmdline.txt`. Preserves `root` but resets all other parameters.
+- [`jm1.rpi_cmdline`](https://github.com/JM1/ansible-role-jm1-rpi-cmdline): role for setting all parameters in `/boot/firmware/cmdline.txt`.
 
 ## Legal
 
