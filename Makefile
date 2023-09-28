@@ -1,6 +1,11 @@
 SOURCE_FILES := $(shell find plugins tests -type f -name '*.py')
 MARKDOWN_FILES := README.md
 
+all: build
+
+build:
+  ansible-galaxy collection build
+
 lint: lint-code lint-markdown
 
 lint-code:
