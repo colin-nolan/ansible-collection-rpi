@@ -9,7 +9,7 @@ steps:
     image: python:3-alpine
     commands:
       - apk add --no-cache make
-      - pip install -r requirementst.style.txt
+      - pip install -r requirements.style.txt
       - make lint
 
 ---
