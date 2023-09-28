@@ -75,9 +75,9 @@ def _read_boot_cmdline(file_location: Path) -> Configuration:
             for item in items:
                 if "=" in item:
                     key, value = item.split("=", maxsplit=1)
-                    configuration[key] = value
+                    configuration[key] = value.rstrip()
                 else:
-                    configuration[item] = None
+                    configuration[item.rstrip()] = None
     return configuration
 
 
