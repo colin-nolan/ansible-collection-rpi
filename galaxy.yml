@@ -13,4 +13,6 @@ repository: https://github.com/colin-nolan/ansible-collection-rpi
 documentation: https://github.com/colin-nolan/ansible-collection-rpi/blob/main/README.md
 homepage: https://github.com/colin-nolan/ansible-collection-rpi
 issues: https://github.com/colin-nolan/ansible-collection-rpi/issues
-build_ignore: []
+build_ignore:
+  - collections
+  - build

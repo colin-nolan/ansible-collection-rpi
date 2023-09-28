@@ -1,5 +1,12 @@
 SOURCE_FILES := $(shell find plugins tests -type f -name '*.py')
 MARKDOWN_FILES := README.md
+COLLECTION_FILES := $(SOURCE_FILES) galaxy.yml meta/runtime.yml
+
+all: build
+
+build:
+	mkdir build
+	ansible-galaxy collection build --output-path build/colin_nolan-rpi.tar.gz
 
 lint: lint-code lint-markdown
 
@@ -23,4 +30,4 @@ format-markdown:
 test:
 	pytest -v
 
-.PHONY: lint lint-code lint-markdown format fmt format-code format-markdown test
+.PHONY: all build lint lint-code lint-markdown format fmt format-code format-markdown test

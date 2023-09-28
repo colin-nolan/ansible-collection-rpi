@@ -25,3 +25,19 @@ steps:
       - apk add --no-cache make
       - pip install -r tests/unit/plugins/requirements.txt
       - make test
+
+---
+
+kind: pipeline
+type: docker
+name: build
+
+steps:
+  - name: build
+    image: python:alpine
+    commands:
+      - apk add --no-cache make
+      - pip install ansible
+      - make build
+
+  # TODO: publish step

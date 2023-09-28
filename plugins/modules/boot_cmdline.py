@@ -57,12 +57,12 @@ EXAMPLES = r"""
   notify: reboot
 """
 
-RETURN = rf'''
+RETURN = rf"""
 changed_keys:
     description: List of changed parameters.
     type: list[str]
     returned: always
-'''
+"""
 
 import tempfile
 from collections import OrderedDict
