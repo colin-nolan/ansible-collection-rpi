@@ -70,6 +70,14 @@ def test_new_lines_handling(runner: ModuleDispatcherV2, example_file: Path):
     assert "\n" not in example_file.read_text()
 
 
+def test_non_string_arguments(runner: ModuleDispatcherV2, example_file: Path):
+    items = {"a": 1, "b": 2.2}
+    result = _run_boot_cmdline(runner, example_file, dict(items=items), False)
+    assert result["changed"]
+    result = _run_boot_cmdline(runner, example_file, dict(items=items), False)
+    assert not result["changed"]
+
+
 def _run_boot_cmdline(localhost: ModuleDispatcherV2, path: Path, paramters: dict[str, Any], check_mode: bool):
     def _init_global_context_replacement(cli_args):
         # Injects checked mode

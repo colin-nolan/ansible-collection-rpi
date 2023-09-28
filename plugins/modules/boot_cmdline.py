@@ -103,6 +103,8 @@ def run_module():
         module.fail_json(msg=f"Unknown state: {state}")
 
     for parameter, argument in module.params[ITEMS_MODULE_PARAMETER].items():
+        parameter = str(parameter)
+        argument = str(argument) if argument is not None else None
         # Need to use sentinel as a unique value that cannot exist in the config (unlike `None`)
         if configuration.get(parameter, _MISSING_SENTINEL) != argument:
             configuration[parameter] = argument
