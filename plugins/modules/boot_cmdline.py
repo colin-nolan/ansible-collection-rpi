@@ -13,6 +13,7 @@ TODO
 """
 
 import tempfile
+from collections import OrderedDict
 from pathlib import Path
 from typing import Any, Callable, TypeAlias
 
@@ -34,7 +35,7 @@ MODULE_SPEC = {
 
 _MISSING_SENTINEL = object()
 
-Configuration: TypeAlias = dict[str, str | None]
+Configuration: TypeAlias = OrderedDict[str, str | None]
 
 
 def run_module():
@@ -66,7 +67,7 @@ def run_module():
 
 
 def _read_boot_cmdline(file_location: Path) -> Configuration:
-    configuration = {}
+    configuration = OrderedDict()
     with file_location.open(mode="r") as file:
         for line in file.readlines():
             items = line.split(" ")
