@@ -8,7 +8,6 @@ Ansible module (not role) for managing `/boot/cmdline.txt` or similar files.
 
 TODO
 
-
 ## Development
 
 ### Test

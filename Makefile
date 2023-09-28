@@ -1,4 +1,5 @@
 SOURCE_FILES := $(shell find plugins tests -type f -name '*.py')
+MARKDOWN_FILES := README.md
 
 lint: lint-code lint-markdown
 

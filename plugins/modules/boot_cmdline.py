@@ -12,8 +12,9 @@ RETURN = r"""
 TODO
 """
 
+import tempfile
 from pathlib import Path
-from typing import Any, TypeAlias
+from typing import Any, Callable, TypeAlias
 
 from ansible.module_utils.basic import AnsibleModule
 
@@ -31,6 +32,8 @@ MODULE_SPEC = {
     PATH_MODULE_PARAMETER: dict(type=str, required=False, default=DEFAULT_CMDLINE_FILE_LOCATION),
 }
 
+_MISSING_SENTINEL = object()
+
 Configuration: TypeAlias = dict[str, str | None]
 
 
@@ -44,19 +47,20 @@ def run_module():
         configuration = _read_boot_cmdline(path)
     except Exception as e:
         module.fail_json(msg=f"Failed to read cmdline file {path}: {e}")
-        raise
+        return
 
     changed_keys = []
     if module.params[STATE_MODULE_PARAMETER] != PRESENT_STATE:
         module.fail_json(msg=f"Unknown state: {state}")
 
     for key, value in module.params[ITEMS_MODULE_PARAMETER].items():
-        if configuration[key] != value:
+        # Need to use sentinel as a unique value that cannot exist in the config (unlike `None`)
+        if configuration.get(key, _MISSING_SENTINEL) != value:
             configuration[key] = value
             changed_keys.append(key)
 
     if not module.check_mode and len(changed_keys) > 0:
-        _write_boot_cmdline(path, configuration)
+        _write_boot_cmdline(path, configuration, module.atomic_move)
 
     module.exit_json(changed=len(changed_keys) > 0, changed_keys=changed_keys)
 
@@ -75,7 +79,7 @@ def _read_boot_cmdline(file_location: Path) -> Configuration:
     return configuration
 
 
-def _write_boot_cmdline(file_location: Path, configuration: Configuration):
+def _write_boot_cmdline(file_location: Path, configuration: Configuration, atomic_move: Callable[[str, str], None]):
     items = []
     for key, value in configuration.items():
         if value is not None:
@@ -83,8 +87,15 @@ def _write_boot_cmdline(file_location: Path, configuration: Configuration):
         else:
             items.append(f"{key}")
 
-    with file_location.open(mode="w") as file:
-        file.write(" ".join(items))
+    try:
+        # Following advice as to not write to files directly:
+        # https://docs.ansible.com/ansible/latest/dev_guide/developing_modules_best_practices.html#general-guidelines-tips
+        with tempfile.NamedTemporaryFile(mode="w") as file:
+            file.write(" ".join(items))
+            atomic_move(file.name, file_location.as_posix())
+    except FileNotFoundError:
+        # Expecting a failure in the success case, as the file has been removed
+        pass
 
 
 def main():
