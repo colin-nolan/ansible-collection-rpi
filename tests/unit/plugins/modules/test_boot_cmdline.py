@@ -8,7 +8,7 @@ from ansible.utils.context_objects import CLIArgs
 from pytest_ansible.module_dispatcher.v2 import ModuleDispatcherV2
 
 EXAMPLE_CONTENT_1 = (
-    "console=serial0,115200 console=tty1 root=PARTUUID=5492573e-02 rootfstype=ext4 fsck.repair=yes rootwait"
+    "console=serial0,115200 console=tty1 root=PARTUUID=5492573e-02 rootfstype=ext4 fsck.repair=yes rootwait\n"
 )
 
 
@@ -62,6 +62,12 @@ def test_add_new_items(runner: ModuleDispatcherV2, example_file: Path, check_mod
     _expect_in_cmdline("new_key", "new_value", example_file, check_mode)
     _expect_in_cmdline("other_key", "other=value", example_file, check_mode)
     _expect_in_cmdline("no_value", None, example_file, check_mode)
+
+
+def test_new_lines_handling(runner: ModuleDispatcherV2, example_file: Path):
+    result = _run_boot_cmdline(runner, example_file, dict(items={"new_key": "new_value"}), False)
+    assert result["changed"]
+    assert "\n" not in example_file.read_text()
 
 
 def _run_boot_cmdline(localhost: ModuleDispatcherV2, path: Path, paramters: dict[str, Any], check_mode: bool):
