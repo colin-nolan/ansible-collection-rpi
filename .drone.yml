@@ -39,3 +39,5 @@ steps:
       - apk add --no-cache make
       - pip install ansible
       - make build
+
+  # TODO: publish step

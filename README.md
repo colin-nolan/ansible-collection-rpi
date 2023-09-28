@@ -1,4 +1,4 @@
-[![Build Status](https://ci.colinnolan.uk/api/badges/colin-nolan/ansible-module-boot-cmdline/status.svg)](https://ci.colinnolan.uk/colin-nolan/ansible-module-boot-cmdline)
+[![Build Status](https://ci.colinnolan.uk/api/badges/colin-nolan/ansible-collection-rpi/status.svg)](https://ci.colinnolan.uk/colin-nolan/ansible-collection-rpi)
 
 # Ansible Collection - colin_nolan.rpi
 
@@ -26,6 +26,7 @@ ansible-galaxy collection install git+https://github.com/colin-nolan/ansible-mod
 ## Usage
 
 Create a task in your role/playbook that uses the module, e.g.:
+
 ```yml
 - name: Set kernel boot parameters
   become: true
@@ -39,6 +40,7 @@ Create a task in your role/playbook that uses the module, e.g.:
 ```
 
 It is likely you will want to reboot handler to apply any changes, e.g.:
+
 ```yml
 - name: Reboot the machine
   become: true
@@ -68,6 +70,12 @@ Requires: `pip install -r requirements.style.txt`.
 
 ```shell
 make format
+```
+
+#### Build Distributable
+
+```shell
+make build
 ```
 
 Requires: see Linting.

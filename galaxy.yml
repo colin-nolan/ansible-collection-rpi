@@ -15,3 +15,4 @@ homepage: https://github.com/colin-nolan/ansible-collection-rpi
 issues: https://github.com/colin-nolan/ansible-collection-rpi/issues
 build_ignore:
   - collections
+  - build
