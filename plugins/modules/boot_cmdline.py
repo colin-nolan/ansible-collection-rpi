@@ -15,7 +15,7 @@ TODO
 import tempfile
 from collections import OrderedDict
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any, Callable, Optional
 
 from ansible.module_utils.basic import AnsibleModule
 
@@ -35,8 +35,8 @@ MODULE_SPEC = {
 
 _MISSING_SENTINEL = object()
 
-# Note: do not use `TypeAlias` to increase Python compatibility
-Configuration = OrderedDict[str, str | None]
+# Note: not using `TypeAlias` to support Python 3.9
+Configuration = OrderedDict[str, Optional[str]]
 
 
 def run_module():
