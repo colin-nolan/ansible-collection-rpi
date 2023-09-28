@@ -20,11 +20,6 @@ def example_file(tmp_path: Path) -> Path:
 
 
 @pytest.fixture()
-def check_mode(request) -> bool:
-    return request.param
-
-
-@pytest.fixture()
 def runner(localhost: ModuleDispatcherV2) -> ModuleDispatcherV2:
     # Hack to allow tests to be ran without setting --module-path flag on pytest
     localhost.options["module_path"] = (
@@ -38,7 +33,7 @@ def runner(localhost: ModuleDispatcherV2) -> ModuleDispatcherV2:
     return localhost
 
 
-@pytest.mark.parametrize("check_mode", [False, True], indirect=True)
+@pytest.mark.parametrize("check_mode", [False, True])
 def test_add_no_configuration(runner: ModuleDispatcherV2, example_file: Path, check_mode: bool):
     original_content = example_file.read_text()
     result = _run_boot_cmdline(runner, example_file, {}, check_mode)
@@ -46,7 +41,7 @@ def test_add_no_configuration(runner: ModuleDispatcherV2, example_file: Path, ch
     assert example_file.read_text() == original_content
 
 
-@pytest.mark.parametrize("check_mode", [False, True], indirect=True)
+@pytest.mark.parametrize("check_mode", [False, True])
 def test_add_no_configuration_change(runner: ModuleDispatcherV2, example_file: Path, check_mode: bool):
     original_content = example_file.read_text()
     result = _run_boot_cmdline(runner, example_file, dict(items={"fsck.repair": "yes", "rootwait": None}), check_mode)
@@ -54,7 +49,7 @@ def test_add_no_configuration_change(runner: ModuleDispatcherV2, example_file: P
     assert example_file.read_text() == original_content
 
 
-@pytest.mark.parametrize("check_mode", [False, True], indirect=True)
+@pytest.mark.parametrize("check_mode", [False, True])
 def test_add_new_items(runner: ModuleDispatcherV2, example_file: Path, check_mode: bool):
     result = _run_boot_cmdline(
         runner,
