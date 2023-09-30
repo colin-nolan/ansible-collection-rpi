@@ -14,13 +14,13 @@ If you are [using a `requirements.yml` file](https://docs.ansible.com/ansible/la
 
 ```yml
 collections:
-  - name: git+https://github.com/colin-nolan/ansible-module-boot-cmdline.git,1.0.0
+  - name: git+https://github.com/colin-nolan/ansible-collection-rpi.git,1.0.1
 ```
 
 else install from the command line using:
 
 ```shell
-ansible-galaxy collection install git+https://github.com/colin-nolan/ansible-module-boot-cmdline.git,1.0.0
+ansible-galaxy collection install git+https://github.com/colin-nolan/ansible-collection-rpi.git,1.0.1
 ```
 
 ## Usage
