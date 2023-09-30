@@ -10,4 +10,4 @@
 
 ### Added
 
-- Initial release.
+- Initial release with `boot_cmdline` module.
