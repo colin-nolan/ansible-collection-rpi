@@ -25,7 +25,7 @@ options:
         required: true
         type: dict
     {PATH_MODULE_PARAMETER}:
-        description: An alternative path to `/boot/cmdline.txt` to   the file containing the kernel boot parameters.
+        description: An alternative path to `/boot/cmdline.txt` to the file containing the kernel boot parameters.
         required: false
         type: str
 """
